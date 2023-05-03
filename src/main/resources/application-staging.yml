@@ -1,31 +1,5 @@
-wayabank:
-  apiPaths:
-    appUserAuth: https://services.staging.wayabank.ng/auth-service/api/v1/auth/login
-    authCustomer: https://services.staging.wayabank.ng/auth-service/api/v1/profile/phone
-    customerDetailsByPhone: https://services.staging.wayabank.ng/auth-service/api/v1/profile/phone
-    customerAccountsBase: https://services.staging.wayabank.ng/temporal-service/api/v1/wallet/accounts
-    accountBalanceCheck: https://services.staging.wayabank.ng/temporal-service/api/v1/wallet/account
-    createNewCustomer: https://services.staging.wayabank.ng/auth-service/api/v1/auth/create
-    verifyOtp: https://services.staging.wayabank.ng/auth-service/api/v1/auth/verify-phone
-    verifyEmail: https://services.staging.wayabank.ng/auth-service/api/v1/auth/verify-email
-    billerCategoryBase: https://services.staging.wayabank.ng/billspayment-service/api/v1/category
-    billerPayment: https://services.staging.wayabank.ng/billspayment-service/api/v1/biller/pay
-    billPaymentPayBill: https://services.staging.wayabank.ng/billspayment-service/api/v1/category/cabletv
-    getBanks: https://services.staging.wayabank.ng/card-service/bankAccount/getBanks/WD
-    beneficiaryNameEnquiry: https://services.staging.wayabank.ng/card-service/bankAccount/resolveAccountNumber/WD
-    fundsTransfer: https://services.staging.wayabank.ng/withdrawal-service/withdrawal/fund
-    fundsTransferInternal: https://services.staging.wayabank.ng/contact-service/contact/account/service/send/money/userWallet/to/wallet/{senderId}/{senderAcctNo}/{beneficialAcctNo}?amount={amount}
-    nameEnquiryInternal: https://services.staging.wayabank.ng/temporal-serviceapi/v1/wallet/info/{accountNumber}
-    chargeCustomer: https://services.staging.wayabank.ng/temporal-service/api/v1/wallet/event/charge/payment
-    validateBill: https://services.staging.wayabank.ng/billspayment-service/api/v1/biller/validate
-    airtimeBiller: https://services.staging.wayabank.ng/billspayment-service/api/v1/category/airtime
-    dataBiller: https://services.staging.wayabank.ng/billspayment-service/api/v1/category/databundle
-    userTransactionFee: https://services.staging.wayabank.ng/temporal-service/api/v1/wallet/transaction/get-user-transaction-fee/{accountNo}/{amount}/{entityId}
-    billPaymentAggregator: https://services.staging.wayabank.ng/billspayment-service/api/v1/config/aggregator
-
 fallback:
-  token: serial eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbeyJjcmVhdGVkQXQiOiIwNy0xMS0yMDIyIDEwOjM4OjI3IiwidXBkYXRlZEF0IjoiMDctMTEtMjAyMiAxMDozODoyNyIsImNyZWF0ZWRCeSI6Ik1HUiIsIm1vZGlmaWVkQnkiOiJNR1IiLCJpZCI6MTAsIm5hbWUiOiJST0xFX1VTRVJfT1dORVIiLCJkZXNjcmlwdGlvbiI6IkNVU1RPTUVSIiwiZGVmYXVsdCI6dHJ1ZSwiYWRtaW5Sb2xlIjpmYWxzZX1dLCJpZCI6MjE1OCwic3ViIjoiaW50ZWdyYXRpb250ZXN0YWNjb3VudEB5b3BtYWlsLmNvbSIsImlhdCI6MTY4MDI2MzY1MCwiZXhwIjoxNzExODIxMjUwfQ.lXmK_01ACUaw0pMpwYAd45fiH09wanhwrZwhqh8CNhH41QoRb3qUo4Vt97lSVszH3zI3mhUXzQ24bNLVVfY_7w
-
+  token:
 ################ Additional configurations for USSD #########################
 ussd:
   logging:
@@ -35,9 +9,9 @@ ussd:
   menu:
     goBackOption: 0
     nextOption: "00"
-  baseCode: "*347*006#"
+  baseCode:
   service:
-    charge: "5"
+    charge:
 
 eventId:
   transaction: NIP_PAYOUT
@@ -50,8 +24,8 @@ session:
   end: "END "
 
 user:
-  password: Password@123
-  emailOrPhone: edceebee@gmail.com
+  password:
+  emailOrPhone:
 
 afrikasTalking:
   callback:
