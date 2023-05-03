@@ -1,0 +1,102 @@
+server:
+  port: ${USSD_SERVICE_SERVER_PORT:9999}
+  error:
+    include-message: always
+  servlet:
+    context-path: /ussd-service
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  application:
+    name: ussd-service
+  datasource:
+    url: ${USSD_SVC_DATASOURCE_URL:jdbc:postgresql://localhost:5432/WayaPayChatTemporalWalletDB?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+    username: ${USSD_SVC_DATASOURCE_USERNAME:postgres}
+    password: ${USSD_SVC_DATASOURCE_PASSWORD:postgres}
+    initialization-mode: always
+    driver-class-name: org.postgresql.Driver
+    continue-on-error: true
+  profiles:
+    active: staging
+  zipkin:
+    enabled: true
+    base-url: ${ZIKIN_URL:https://zipkin.waya-pay.com}
+  sleuth:
+    sampler:
+      percentage: 1.0
+    web:
+      skipPattern: (^cleanup.*|.+favicon.*)
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        storage_engine: innodb
+        jdbc:
+          time_zone: UTC
+    open-in-view: false #this config disables database queries which  may be performed during view rendering
+  kafka:
+    bootstrapServers: ${KAFKA_BOOTSTRAP_SERVERS:http://localhost:9092}
+    groupId: ${KAFKA_GROUP_ID:waya}
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: waya
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL:https://services.staging.wayabank.ng}
+    service-url:
+      default-zone:${EUREKA_SERVER_URL:https://services.staging.wayabank.ng}
+  instance:
+    preferIpAddress: true
+jwt:
+  secret: ${USSD_JWT_SECRET:BvPHGM8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadwezxgeEByY}
+  expiration: ${USSD_JWT_EXPIRATION:86400}
+
+service-key:
+  auth_get_user_key: ${AUTH_GET_USER_WALLET_KEY:WALMIFOS}
+
+app:
+  config:
+    wallet:
+      base-url: ${CONFIG_BASEURL_MWALLET:https://services.staging.wayapay.ng/temporal-service/api/v1/wallet}
+    auth-service:
+      base-url: ${AUTHENTICATION_SERVICE_BASEURL:https://services.staging.wayabank.ng/auth-service/api/v1}
+    notification:
+      base-url: ${CONFIG_BASEURL_NOTIFICATION:https://services.staging.wayapay.ng/notification-service/api/v1}
+    kyc-service:
+      base-url: ${CONFIG_BASEURL_KYC:https://services.staging.wayapay.ng/kyc-service}
+    coralpay:
+      base-url: ${CORALPAY_BASE_URL:https://testdev.coralpay.com/cgateproxy/api}
+      username: ${CORALPAY_USERNAME:wayapay}
+      password: ${CORALPAY_PASSWORD:2103023822@003#0}
+      merchant-id: ${CORALPAY_MERCHANT_ID:1057WPY10000001}
+      terminal-id: ${CORALPAY_TERMINAL_ID:1057WPY1}
+    payment-gateway-service:
+      base-url: ${CORALPAY_BASE_URL:https://services.staging.wayapay.ng/payment-gateway/api/v1}
+#      base-url: ${CORALPAY_BASE_URL:http://localhost:8391/api/v1}
+    waya-merchant:
+      base-url: ${WAYA_MERCHANT_BASE_URL:https://services.staging.wayapay.ng/identity-manager-service/api/v1}
+      api-key:  ${WAYA_MERCHANT_API_KEY:2ccd7030-fbb8-411f-a6bc-1e762604458b}
+    waya:
+      username: ${DEAMON_USERNAME:admin@wayapaychat.com}
+      password: ${DEAMON_PASSWORD:kKo0a9@=&?*#}
+      token: serial eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbeyJjcmVhdGVkQXQiOiIxNS0wMi0yMDIyIDA3OjI3OjEzIiwidXBkYXRlZEF0IjoiMTUtMDItMjAyMiAwNzoyNzoxMyIsImNyZWF0ZWRCeSI6Ik1HUiIsIm1vZGlmaWVkQnkiOiJNR1IiLCJpZCI6MTMsIm5hbWUiOiJST0xFX1VTRVIiLCJkZXNjcmlwdGlvbiI6IlVTRVIgUk9MRSJ9LHsiY3JlYXRlZEF0IjoiMTUtMDItMjAyMiAwNzoyNzoxMyIsInVwZGF0ZWRBdCI6IjE1LTAyLTIwMjIgMDc6Mjc6MTMiLCJjcmVhdGVkQnkiOiJNR1IiLCJtb2RpZmllZEJ5IjoiTUdSIiwiaWQiOjE2LCJuYW1lIjoiUk9MRV9BUFBfQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFQUExJQ0FUSU9OIEFETUlOIn1dLCJpZCI6MzQ4LCJzdWIiOiJhZG1pbkB3YXlhcGF5Y2hhdC5jb20iLCJpYXQiOjE2NTA4ODUxODMsImV4cCI6MTY4MjQ0Mjc4M30.1pwMAMn7yBBphc1M1mkp1kKFhD1UZg0isojWYZB1w9_zdeJ9hR6cWhsN8d-9R53Xh33cYdRQfZgJ47ZJ48YCTw
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+      type:
+        descriptor:
+          sql:
+            BasicBinder: TRACE
